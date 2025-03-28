@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Book, DefaultEmptyBook } from "./Book";
+
 const CreateBookComponent = () => {
   const navigate = useRouter();
   const [book, setBook] = useState<Book>(DefaultEmptyBook);
@@ -90,7 +91,13 @@ const CreateBookComponent = () => {
                   placeholder="published_date"
                   name="published_date"
                   className="form-control"
-                  value={book.published_date?.toString()}
+                  value={
+                    book.published_date
+                      ? new Date(book.published_date)
+                          .toISOString()
+                          .split("T")[0]
+                      : ""
+                  }
                   onChange={onChange}
                 />
               </div>
